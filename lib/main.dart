@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'app.dart';
 
-// TODO(codelab user): Get API key
+//(codelab user): Get API key
 const clientId =
     '1043694505574-i265jt3v2mb7kpujv74ig13f8d297v6j.apps.googleusercontent.com';
 

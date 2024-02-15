@@ -1,7 +1,7 @@
 // import 'dart:developer';
 
 // ignore: unused_import
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:complete/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 
@@ -51,22 +51,7 @@ class HomeScreen extends StatelessWidget {
         ],
         automaticallyImplyLeading: false,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Image.asset('dash.png'),
-            Text(
-              'Welcome!',
-              style: Theme.of(context).textTheme.displaySmall,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 32),
-              child: const SignOutButton(),
-            ),
-          ],
-        ),
-      ),
+      body: dashboard(),
     );
   }
 }
