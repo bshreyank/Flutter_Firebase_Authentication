@@ -82,9 +82,26 @@ class _Page_1State extends State<Page_1> {
                 return ListView.builder(
                   itemCount: activities.length,
                   itemBuilder: (context, index) {
-                    final activity = activities[index];
-                    return ListTile(
-                      title: Text(activities[index].activity),
+                    return Row(
+                      children: [
+                        Expanded(
+                          child: ListTile(
+                            title: Text(activities[index].activity),
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            // Add your logic for the first IconButton
+                          },
+                          icon: Icon(Icons.favorite),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            // Add your logic for the second IconButton
+                          },
+                          icon: Icon(Icons.add),
+                        ),
+                      ],
                     );
                   },
                 );
