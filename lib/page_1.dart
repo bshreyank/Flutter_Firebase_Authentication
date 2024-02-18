@@ -22,32 +22,35 @@ class Activity {
 
 class ActivityProvider extends ChangeNotifier {
   final List<Activity> _activities = [];
+  bool _activitiesFetched = false;
 
-  // Getter to access the list of activities
   List<Activity> get activities => _activities;
 
-  get list => null;
-
-  // Method to fetch activities from the API
   Future<void> fetchActivities() async {
-    for (int i = 0; i < 5; i++) {
-      final response = await http.get(
-          Uri.parse('https://www.boredapi.com/api/activity/?participants=1'));
+    if (!_activitiesFetched) {
+      for (int i = 0; i < 5; i++) {
+        final response = await http.get(
+            Uri.parse('https://www.boredapi.com/api/activity/?participants=1'));
 
-      if (response.statusCode == 200) {
-        final jsonData = json.decode(response.body);
-        _activities.add(Activity.fromJson(jsonData));
-      } else {
-        throw Exception('Failed to load activities');
+        if (response.statusCode == 200) {
+          final jsonData = json.decode(response.body);
+          _activities.add(Activity.fromJson(jsonData));
+        } else {
+          throw Exception('Failed to load activities');
+        }
       }
+      _activitiesFetched = true;
+      notifyListeners();
     }
-    notifyListeners(); // Notify listeners (widgets) that data has changed
   }
 
-  //come to this later
-  void handleDeleteActivity(e) {}
-  //come to this later
-  void handleDeleteAll() {}
+  // Method to fetch activities again
+  Future<void> refreshActivities() async {
+    _activitiesFetched = false; // Reset the flag
+    await fetchActivities(); // Fetch activities again
+  }
+
+  //Implementing Page_2 sending data activity!
 }
 
 //=================================================>>>>
@@ -65,7 +68,7 @@ class _Page_1State extends State<Page_1> {
   @override
   void initState() {
     super.initState();
-    // Fetch activities when the home page is initialized
+    // Fetch activities when the page initializes
     Provider.of<ActivityProvider>(context, listen: false).fetchActivities();
   }
 
@@ -77,8 +80,7 @@ class _Page_1State extends State<Page_1> {
           body: Center(
             child: Consumer<ActivityProvider>(
               builder: (context, activityProvider, _) {
-                final activities = activityProvider
-                    .activities; // Get the list of activities from the provider
+                final activities = activityProvider.activities;
                 return ListView.builder(
                   itemCount: activities.length,
                   itemBuilder: (context, index) {
@@ -110,9 +112,9 @@ class _Page_1State extends State<Page_1> {
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              // Fetch activities when the refresh button is pressed
+              // Refresh activities when FloatingActionButton is pressed
               Provider.of<ActivityProvider>(context, listen: false)
-                  .fetchActivities();
+                  .refreshActivities();
             },
             child: Icon(Icons.refresh),
           ),
