@@ -20,12 +20,15 @@ class Activity {
   }
 }
 
+//===========================================================>>>>
+
 class ActivityProvider extends ChangeNotifier {
   final List<Activity> _activities = [];
   bool _activitiesFetched = false;
 
   List<Activity> get activities => _activities;
 
+  //============ Main Bored API fetching start ===>>>>>
   Future<void> fetchActivities() async {
     if (!_activitiesFetched) {
       for (int i = 0; i < 5; i++) {
@@ -43,6 +46,7 @@ class ActivityProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+  //============ Main Bored API fetching end ===>>>>>
 
   // Method to fetch activities again
   Future<void> refreshActivities() async {
@@ -51,9 +55,28 @@ class ActivityProvider extends ChangeNotifier {
   }
 
   //Implementing Page_2 sending data activity!
+  List<Activity> _selectedActivities = [];
+
+  List<Activity> get selectedActivities => _selectedActivities;
+
+  void addsetSelectedActivity(Activity activity) {
+    _selectedActivities.add(activity);
+    notifyListeners();
+  }
+
+  //Implementing Delete Activities
+  void deleteActivity(activity) {
+    _selectedActivities.remove(activity);
+    notifyListeners();
+  }
+
+  void deleteAllActivities() {
+    _selectedActivities.clear();
+    notifyListeners();
+  }
 }
 
-//=================================================>>>>
+//================================================= Main Page_1 Scaffold Widget start ===>>>>
 
 class Page_1 extends StatefulWidget {
   const Page_1({
@@ -63,6 +86,8 @@ class Page_1 extends StatefulWidget {
   @override
   State<Page_1> createState() => _Page_1State();
 }
+
+//==========================================>>>>
 
 class _Page_1State extends State<Page_1> {
   @override
@@ -99,7 +124,11 @@ class _Page_1State extends State<Page_1> {
                         ),
                         IconButton(
                           onPressed: () {
-                            // Add your logic for the second IconButton
+                            // Pass the selected activity to Page_2
+                            activityProvider
+                                .addsetSelectedActivity(activities[index]);
+                            // Navigate to Page_2
+                            Navigator.pushNamed(context, '/page2');
                           },
                           icon: Icon(Icons.add),
                         ),

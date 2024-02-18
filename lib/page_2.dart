@@ -3,12 +3,42 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class Page_2 extends StatelessWidget {
-  const Page_2({
-    super.key,
-  });
-
   @override
   Widget build(BuildContext context) {
-    return Text("Hello World");
+    return Consumer<ActivityProvider>(
+      builder: (context, activityProvider, _) {
+        final selectedActivities = activityProvider.selectedActivities;
+
+        return Scaffold(
+          appBar: AppBar(
+            title: Text('Selected Activities'),
+          ),
+          body: ListView.builder(
+            itemCount: selectedActivities.length,
+            itemBuilder: (context, index) {
+              final activity = selectedActivities[index];
+              return ListTile(
+                title: Text(activity.activity),
+                trailing: IconButton(
+                  icon: Icon(Icons.delete),
+                  onPressed: () {
+                    // Delete the activity
+                    activityProvider.deleteActivity(activity);
+                  },
+                ),
+              );
+            },
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              // Delete all activities
+              activityProvider.deleteAllActivities();
+            },
+            child: Icon(Icons.delete_forever),
+            tooltip: 'Delete All',
+          ),
+        );
+      },
+    );
   }
 }
