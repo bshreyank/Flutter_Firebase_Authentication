@@ -1,6 +1,7 @@
 import 'package:complete/page_1.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 class Page_2 extends StatelessWidget {
   @override
