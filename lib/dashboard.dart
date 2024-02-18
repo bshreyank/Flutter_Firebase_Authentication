@@ -44,7 +44,7 @@ class _dashboardState extends State<dashboard> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.business),
-            label: 'Business',
+            label: 'Saved Activities',
           ),
         ],
         currentIndex: _selectedIndex,
