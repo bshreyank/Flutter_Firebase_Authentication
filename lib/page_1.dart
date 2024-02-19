@@ -32,8 +32,8 @@ class ActivityProvider extends ChangeNotifier {
   Future<void> fetchActivities() async {
     if (!_activitiesFetched) {
       for (int i = 0; i < 5; i++) {
-        final response = await http.get(
-            Uri.parse('https://www.boredapi.com/api/activity/?participants=1'));
+        final response =
+            await http.get(Uri.parse('https://www.boredapi.com/api/activity/'));
 
         if (response.statusCode == 200) {
           final jsonData = json.decode(response.body);
@@ -48,6 +48,29 @@ class ActivityProvider extends ChangeNotifier {
   }
   //============ Main Bored API fetching end ===>>>>>
 
+  //=========== Adding data to firebase database - start===>>>>
+  final String firebaseUrl =
+      'https://fir-database-8ba40-default-rtdb.firebaseio.com/';
+
+  Future<void> _addToFirebase(String key, String value) async {
+    try {
+      await Future.delayed(
+          Duration.zero); // Delay to allow proper widget initialization
+      final response = await http.post(
+        Uri.parse('$firebaseUrl$key.json'),
+        body: jsonEncode(value),
+      );
+
+      if (response.statusCode != 200) {
+        throw Exception('Failed to add data to Firebase: ${response.body}');
+      }
+    } catch (error) {
+      print('Failed to add data to Firebase: $error');
+    }
+  } //Future
+  //=========== Adding data to firebase database - end===>>>>
+
+// =============== Function ========>>>>>
   // Method to fetch activities again
   Future<void> refreshActivities() async {
     _activitiesFetched = false; // Reset the flag
@@ -117,8 +140,15 @@ class _Page_1State extends State<Page_1> {
                           ),
                         ),
                         IconButton(
-                          onPressed: () {
+                          onPressed: () async {
+                            // Get the key and activity from the activities list
+                            final key =
+                                's1'; // You need to define your key here
+                            final activity =
+                                activityProvider.activities[index].activity;
                             // Add your logic for the first IconButton
+                            await activityProvider._addToFirebase(
+                                'key', 'activity');
                           },
                           icon: Icon(Icons.favorite),
                         ),
