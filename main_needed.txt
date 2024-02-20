@@ -1,3 +1,4 @@
+// Represents an activity fetched from the API
 //
 //
 //
