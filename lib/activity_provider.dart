@@ -45,25 +45,7 @@ class ActivityProvider extends ChangeNotifier {
   }
 
   //Implementing Page_2 sending data activity!
-  List<Activity> _selectedActivities = [];
-
-  List<Activity> get selectedActivities => _selectedActivities;
-
-  void addsetSelectedActivity(Activity activity) {
-    _selectedActivities.add(activity);
-    notifyListeners();
-  }
-
-  //Implementing Delete Activities
-  void deleteActivity(activity) {
-    _selectedActivities.remove(activity);
-    notifyListeners();
-  }
-
-  void deleteAllActivities() {
-    _selectedActivities.clear();
-    notifyListeners();
-  }
+  //main_needed.txt
 }
 
 //================================================= Main Page_1 Scaffold Widget start ===>>>>
