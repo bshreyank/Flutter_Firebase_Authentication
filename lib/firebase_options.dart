@@ -21,11 +21,20 @@ class DefaultFirebaseOptions {
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
-        return android;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for android - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -44,37 +53,11 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCMrldiVaZxBfk6zhkpx41KizVEKzjsgSY',
-    appId: '1:1043694505574:web:aeb2f4cf9b3a59208627a7',
-    messagingSenderId: '1043694505574',
-    projectId: 'flutterfire-ui-codelab-851e7',
-    authDomain: 'flutterfire-ui-codelab-851e7.firebaseapp.com',
-    storageBucket: 'flutterfire-ui-codelab-851e7.appspot.com',
-  );
-
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCrfwj6zwMjZRwvQLFAvpodQxuuDrPtk0M',
-    appId: '1:1043694505574:android:a63f61542a8f631e8627a7',
-    messagingSenderId: '1043694505574',
-    projectId: 'flutterfire-ui-codelab-851e7',
-    storageBucket: 'flutterfire-ui-codelab-851e7.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyB8SvAf67MC3v60GiMwmc6y1mrewIynRIw',
-    appId: '1:1043694505574:ios:4be454464fabfe778627a7',
-    messagingSenderId: '1043694505574',
-    projectId: 'flutterfire-ui-codelab-851e7',
-    storageBucket: 'flutterfire-ui-codelab-851e7.appspot.com',
-    iosBundleId: 'com.example.complete',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyB8SvAf67MC3v60GiMwmc6y1mrewIynRIw',
-    appId: '1:1043694505574:ios:fb4d610568b4456e8627a7',
-    messagingSenderId: '1043694505574',
-    projectId: 'flutterfire-ui-codelab-851e7',
-    storageBucket: 'flutterfire-ui-codelab-851e7.appspot.com',
-    iosBundleId: 'com.example.complete.RunnerTests',
+    apiKey: 'AIzaSyAnWZi7gYC2OqNrcIGCt-MmptLYFh5jSmc',
+    appId: '1:810995224587:web:7b16979bafc2fe9e47370e',
+    messagingSenderId: '810995224587',
+    projectId: 'cloudstoredatabase',
+    authDomain: 'cloudstoredatabase.firebaseapp.com',
+    storageBucket: 'cloudstoredatabase.appspot.com',
   );
 }
