@@ -57,3 +57,12 @@
 //
 //
 //
+
+=======page_2
+ Theme.of(context).textTheme.bodyLarge?.copyWith(
+       decoration: TextDecoration.lineThrough,
+
+
+       //subtitle: Text(
+              //'Liked: $isLiked and Added: $isSaved',
+              // )
