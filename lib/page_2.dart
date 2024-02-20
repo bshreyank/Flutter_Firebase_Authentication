@@ -18,7 +18,7 @@ class Page_2 extends StatelessWidget {
             itemBuilder: (context, index) {
               final activity = selectedActivities[index];
               return ListTile(
-                title: Text(activity.activity),
+                title: Text(activity.title),
                 trailing: IconButton(
                   icon: Icon(Icons.delete),
                   onPressed: () {
