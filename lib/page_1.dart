@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,6 +18,29 @@ class Page_1 extends StatefulWidget {
 //==========================================>>>>
 
 class _Page_1State extends State<Page_1> {
+  //Like and Unlike
+  late int selectedItemIndex;
+
+  void toggleLike(String title) {
+    setState(() {
+      final activityProvider =
+          Provider.of<ActivityProvider>(context, listen: false);
+      final index =
+          activityProvider.activities.indexWhere((item) => item.title == title);
+      if (index != -1) {
+        activityProvider.activities[index] = activityProvider.activities[index]
+            .copyWith(isLiked: !activityProvider.activities[index].isLiked);
+
+        // Update Firestore with isLiked status
+        FirebaseFirestore.instance
+            .collection('activities')
+            .doc(title)
+            .set(activityProvider.activities[index].toJson());
+      }
+    });
+  }
+
+  //Initial Stage
   @override
   void initState() {
     super.initState();
@@ -24,6 +48,7 @@ class _Page_1State extends State<Page_1> {
     Provider.of<ActivityProvider>(context, listen: false).fetchActivities();
   }
 
+  //Main Widget
   @override
   Widget build(BuildContext context) {
     return Consumer<ActivityProvider>(
@@ -40,21 +65,34 @@ class _Page_1State extends State<Page_1> {
                       children: [
                         Expanded(
                           child: ListTile(
-                            title: Text(activities[index].activity),
+                            title: Text(activities[index].title),
                           ),
                         ),
                         IconButton(
-                          onPressed: () async {
-                            // Get the key and activity from the activities list
-                            final key =
-                                's1'; // You need to define your key here
-                            final activity =
-                                activityProvider.activities[index].activity;
-                            // Add your logic for the first IconButton
-                            await activityProvider.addToFirebase(
-                                'key', 'activity');
+                          onPressed: () {
+                            // bool isLiked = activityProvider.activities[index].isLiked;
+                            // toggleLike(activities[index].title, isLiked);
+                            String title = activities[index].title;
+                            toggleLike(title);
+                            // String activity = activityProvider.activities[index].title;
+                            //activityProvider.addDataToFirestore();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                    activityProvider.activities[index].isLiked
+                                        ? 'Activity liked!'
+                                        : 'Activity unliked!'),
+                              ),
+                            );
                           },
-                          icon: Icon(Icons.favorite),
+                          icon: Icon(
+                            activities[index].isLiked // fixed
+                                ? Icons.favorite
+                                : Icons.favorite_border,
+                            color: activities[index].isLiked // fixed
+                                ? Colors.red
+                                : null,
+                          ),
                         ),
                         IconButton(
                           onPressed: () {
