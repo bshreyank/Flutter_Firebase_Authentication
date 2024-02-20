@@ -6,7 +6,16 @@ part of 'user.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl();
+_$ActivityImpl _$$ActivityImplFromJson(Map<String, dynamic> json) =>
+    _$ActivityImpl(
+      title: json['title'] as String,
+      isLiked: json['isLiked'] as bool,
+      isSaved: json['isSaved'] as bool,
+    );
 
-Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
-    <String, dynamic>{};
+Map<String, dynamic> _$$ActivityImplToJson(_$ActivityImpl instance) =>
+    <String, dynamic>{
+      'title': instance.title,
+      'isLiked': instance.isLiked,
+      'isSaved': instance.isSaved,
+    };

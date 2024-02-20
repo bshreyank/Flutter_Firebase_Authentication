@@ -4,8 +4,13 @@ part 'user.g.dart';
 part 'user.freezed.dart';
 
 @freezed
-class User with _$User {
-  const factory User() = _User;
+class Activity with _$Activity {
+  const factory Activity({
+    required String title,
+    required bool isLiked,
+    required bool isSaved,
+  }) = _Activity;
 
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  factory Activity.fromJson(Map<String, dynamic> json) =>
+      _$ActivityFromJson(json);
 }
