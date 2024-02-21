@@ -12,13 +12,8 @@ class dashboard extends StatefulWidget {
 class _dashboardState extends State<dashboard> {
   int _selectedIndex = 0;
   static List<Widget> _widgetOptions = <Widget>[
-    ///==============================Page 1
     Page_1(),
-
-    ///==============================Page 2
     Page_2(),
-
-    ///==============================Page 2 - end
   ];
 
   void _onItemTapped(int index) {
