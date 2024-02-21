@@ -16,17 +16,3 @@ void main() async {
 
   runApp(const MyApp());
 }
-
-/*
-This code does two things.
-
-WidgetsFlutterBinding.ensureInitialized() tells Flutter not to start running 
-the application widget code until the Flutter framework is completely booted. 
-Firebase uses native platform channels, which require the framework to be 
-running.
-
-Firebase.initializeApp sets up a connection between your Flutter app and 
-your Firebase project. The DefaultFirebaseOptions.currentPlatform is imported 
-from our generated firebase_options.dart file. This static value detects which 
-platform you're running on, and passes in the corresponding Firebase keys.
-*/
