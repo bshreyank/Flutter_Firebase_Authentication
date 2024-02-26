@@ -1,6 +1,8 @@
+import 'package:complete/activity_provider.dart';
 import 'package:complete/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'app.dart';
 
@@ -14,5 +16,16 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp(const MyApp());
+  //Obtain an instance of ActivityProvider
+  ActivityProvider activityProvider = ActivityProvider();
+
+  //Fetch activities only once during app startup
+  await activityProvider.fetchActivities();
+
+  runApp(
+    ChangeNotifierProvider.value(
+      value: activityProvider,
+      child: const MyApp(),
+    ),
+  );
 }

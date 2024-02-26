@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:complete/user.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-// import 'package:cloud_firestore/cloud_firestore.dart';
 
 //================================================ Provider ====>>>>
 
@@ -10,6 +9,11 @@ class ActivityProvider extends ChangeNotifier {
   final List<Activity> _activities = [];
   bool _activitiesFetched = false;
   List<Activity> get activities => _activities;
+
+  void clearActivity() {
+    _activities.clear();
+    notifyListeners();
+  }
 
   //============ Main Bored API fetching start ===>>>>>
   Future<void> fetchActivities() async {
@@ -39,13 +43,26 @@ class ActivityProvider extends ChangeNotifier {
 
 // =============== Function ========>>>>>
   // Method to fetch activities again
+  // Future<void> refreshActivities() async {
+  //   // _activities.clear();
+  //   _activitiesFetched = false; // Reset the flag
+  //   await fetchActivities(); // Fetch activities again
+  //   notifyListeners();
+  // }
+
   Future<void> refreshActivities() async {
-    _activitiesFetched = false; // Reset the flag
-    await fetchActivities(); // Fetch activities again
+    if (!_activitiesFetched) {
+      // Check if activities have been fetched before
+      _activitiesFetched =
+          true; // Set the flag to true to indicate activities have been fetched
+      await fetchActivities(); // Fetch activities only if not fetched before
+      notifyListeners();
+    }
+    notifyListeners();
   }
 
   //Implementing Page_2 sending data activity!
   //main_needed.txt
 }
 
-//================================================= Main Page_1 Scaffold Widget start ===>>>>
+//============================ Main Page_1 Scaffold Widget start ===>>>>
