@@ -1,0 +1,91 @@
+// Represents an activity fetched from the API
+//
+//
+//
+//
+//
+//
+//
+//
+
+  //=========== Adding data to firebase database - start===>>>>
+  /*
+  final String firebaseUrl =
+      'https://fir-database-8ba40-default-rtdb.firebaseio.com/';
+
+  Future<void> addToFirebase(String key, String value) async {
+    try {
+      await Future.delayed(
+          Duration.zero); // Delay to allow proper widget initialization
+      final response = await http.post(
+        Uri.parse('$firebaseUrl$key.json'),
+        body: jsonEncode(value),
+      );
+
+      if (response.statusCode != 200) {
+        throw Exception('Failed to add data to Firebase: ${response.body}');
+      }
+    } catch (error) {
+      print('Failed to add data to Firebase: $error');
+    }
+  } //Future
+  */
+  //=========== Adding data to firebase database - end===>>>>
+//
+//
+//
+//
+//
+//
+//
+//
+
+  //=========== Adding data to firestore - start===>>>>
+
+  // void addDataToFirestore() {
+  //   FirebaseFirestore.instance
+  //       .collection('activities')
+  //       .add({'activitiy': activities});
+  // }
+
+  //=========== Adding data to firestore - end===>>>>
+//
+//
+//
+//
+//
+//
+//
+//
+
+=======page_2
+ Theme.of(context).textTheme.bodyLarge?.copyWith(
+       decoration: TextDecoration.lineThrough,
+
+
+       //subtitle: Text(
+              //'Liked: $isLiked and Added: $isSaved',
+              // )
+
+///////////======================>>>
+
+//Implementing Page_2 sending data activity!
+  List<Activity> _selectedActivities = [];
+
+  List<Activity> get selectedActivities => _selectedActivities;
+
+  void addsetSelectedActivity(Activity activity) {
+    _selectedActivities.add(activity);
+    notifyListeners();
+  }
+
+  //Implementing Delete Activities
+  void deleteActivity(activity) {
+    _selectedActivities.remove(activity);
+    notifyListeners();
+  }
+
+  void deleteAllActivities() {
+    _selectedActivities.clear();
+    notifyListeners();
+  }
